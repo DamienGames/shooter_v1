@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="EnemyConfig" format=3 uid="uid://ci4u8fvf2nt72"]
+
+[ext_resource type="PackedScene" uid="uid://dljvj4wb3xsas" path="res://Scenes/Enemy/enemy.tscn" id="1_8cbgm"]
+[ext_resource type="Script" uid="uid://vjsjjqknrf31" path="res://Scripts/Config/EnemyConfig.cs" id="1_njdbk"]
+
+[resource]
+script = ExtResource("1_njdbk")
+Id = "black_1"
+DisplayName = "Black One"
+Shield = 2.0
+EnemyScene = ExtResource("1_8cbgm")
+metadata/_custom_type_script = "uid://vjsjjqknrf31"

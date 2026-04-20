@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="PoolConfig" format=3 uid="uid://dkdvo727417rp"]
+
+[ext_resource type="PackedScene" uid="uid://dljvj4wb3xsas" path="res://Scenes/Enemy/enemy.tscn" id="1_8cbgm"]
+[ext_resource type="Script" uid="uid://d0lbwkfqrk04j" path="res://Scripts/Config/PoolConfig.cs" id="2_mqj67"]
+
+[resource]
+script = ExtResource("2_mqj67")
+EnemyScene = ExtResource("1_8cbgm")
+Id = "black_1"
+metadata/_custom_type_script = "uid://d0lbwkfqrk04j"

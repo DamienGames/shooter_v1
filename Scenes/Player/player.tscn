@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://05goeedx4lj4"]
+
+[ext_resource type="Script" uid="uid://djupus5wjijrj" path="res://Scripts/Player/Player.cs" id="1_uvnfx"]
+[ext_resource type="Texture2D" uid="uid://cnqrxf88f4umf" path="res://Assets/Art/PNG/playerShip1_blue.png" id="2_a3d8c"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_a3d8c"]
+radius = 15.132746
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xpcdj"]
+atlas = ExtResource("2_a3d8c")
+region = Rect2(0, 0, 99, 75)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_mtuoh"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xpcdj")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Player" type="CharacterBody2D" unique_id=1664683295]
+script = ExtResource("1_uvnfx")
+
+[node name="Collision" type="CollisionShape2D" parent="." unique_id=1597489091]
+position = Vector2(0, 6)
+shape = SubResource("CircleShape2D_a3d8c")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1371392470]
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_mtuoh")
