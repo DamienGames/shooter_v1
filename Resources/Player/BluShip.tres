@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="ShipConfig" format=3 uid="uid://delgxjjcrbdy5"]
+
+[ext_resource type="Script" uid="uid://cb7fsrhisylrn" path="res://Scripts/Config/ShipConfig.cs" id="1_0argk"]
+[ext_resource type="Texture2D" uid="uid://cnqrxf88f4umf" path="res://Assets/Art/PNG/playerShip1_blue.png" id="1_xd5jc"]
+
+[resource]
+script = ExtResource("1_0argk")
+Id = "blue_1"
+DisplayName = "Aza Blue"
+MaxHealth = 40.0
+MovingSpeed = 100.0
+DisplayIcon = ExtResource("1_xd5jc")
+ShipSprite = ExtResource("1_xd5jc")
+metadata/_custom_type_script = "uid://cb7fsrhisylrn"

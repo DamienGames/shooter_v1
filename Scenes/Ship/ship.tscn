@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://bvwpa40et52f8"]
+
+[ext_resource type="Script" uid="uid://cem02mwfe6u7a" path="res://Scenes/Ship/Ship.cs" id="1_0beu4"]
+[ext_resource type="Texture2D" uid="uid://cnqrxf88f4umf" path="res://Assets/Art/PNG/playerShip1_blue.png" id="2_awow7"]
+
+[node name="BlueShip" type="Node2D" unique_id=1925117550]
+script = ExtResource("1_0beu4")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1388537474]
+texture = ExtResource("2_awow7")

@@ -7,6 +7,8 @@ public partial class EnemySpawner : Node2D
     [Export] public Array<EnemyConfig> SpawnTable { get; set; }
     [Export] public float SpawnInterval { get; set; } = 2f;
 
+    [Export] public Array<Marker2D> EnemySpawns;
+
     private Timer _timer;
 
     public override void _Ready()
@@ -18,7 +20,7 @@ public partial class EnemySpawner : Node2D
         _timer.Start();
     }
 
-    void OnSpawnTimer()
+    private void OnSpawnTimer()
     {
         if (SpawnTable.Count == 0)
             return;
@@ -29,9 +31,11 @@ public partial class EnemySpawner : Node2D
         EnemyConfig config =
             SpawnTable[index];
 
+       var spawnPostition = EnemySpawns[GD.RandRange(0, 2)].GlobalPosition;
+
         Pool.GetEnemy(
             config,
-            GlobalPosition
+            spawnPostition
         );
     }
 }
