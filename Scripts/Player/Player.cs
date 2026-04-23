@@ -15,7 +15,7 @@ public partial class Player : CharacterBody2D
         _shipConfig = shipConfig;
         _cannonConfig = cannonConfig;
         _sprite.Texture = shipConfig.ShipSprite;
-        Speed = _shipConfig.MovingSpeed;
+        Speed = shipConfig.MovingSpeed;
         Damage = cannonConfig.Damage;
     }
 

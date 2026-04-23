@@ -1,7 +1,7 @@
 using Godot;
 
 [GlobalClass]
-public partial class CannonConfig : Node
+public partial class CannonConfig : Resource
 {
     [ExportGroup("Base")]
     [Export] public string Id { get; set; }

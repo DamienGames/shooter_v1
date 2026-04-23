@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="CannonConfig" format=3 uid="uid://d2lx275p0hy0d"]
+
+[ext_resource type="Script" uid="uid://c303vhup4u8v0" path="res://Scripts/Config/CannonConfig.cs" id="1_iyg8m"]
+
+[resource]
+script = ExtResource("1_iyg8m")
+Id = "foton_cannon"
+DisplayName = "Canhão de Fotons"
+Damage = 10.0
+AttackSpeed = 5.0
+Range = 100.0
+Burst = 1.0
+metadata/_custom_type_script = "uid://c303vhup4u8v0"

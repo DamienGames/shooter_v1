@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://djupus5wjijrj" path="res://Scripts/Player/Player.cs" id="1_uvnfx"]
 [ext_resource type="Resource" uid="uid://delgxjjcrbdy5" path="res://Resources/Player/BluShip.tres" id="2_a3d8c"]
+[ext_resource type="Resource" uid="uid://d2lx275p0hy0d" path="res://Resources/Player/CannonFotons.tres" id="3_xpcdj"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_a3d8c"]
 radius = 15.132746
@@ -9,7 +10,8 @@ radius = 15.132746
 [node name="Player" type="CharacterBody2D" unique_id=1664683295 node_paths=PackedStringArray("_sprite")]
 script = ExtResource("1_uvnfx")
 _sprite = NodePath("Sprite")
-_config = ExtResource("2_a3d8c")
+_shipConfig = ExtResource("2_a3d8c")
+_cannonConfig = ExtResource("3_xpcdj")
 
 [node name="Sprite" type="Sprite2D" parent="." unique_id=378656112]
 scale = Vector2(0.5, 0.5)

@@ -1,59 +1,28 @@
 [gd_scene format=3 uid="uid://c8ivm86osl6ln"]
 
-[ext_resource type="FontFile" uid="uid://ce2af8xkp2svv" path="res://Assets/Fonts/kenvector_future.ttf" id="1_n1kio"]
 [ext_resource type="Script" uid="uid://bkwpcxety3ubu" path="res://Scripts/Main.cs" id="1_ntgcc"]
 [ext_resource type="PackedScene" uid="uid://550skkl56unq" path="res://Scenes/World/stage_1.tscn" id="2_23yoc"]
 [ext_resource type="PackedScene" uid="uid://05goeedx4lj4" path="res://Scenes/Player/player.tscn" id="2_jyfha"]
 [ext_resource type="Resource" uid="uid://delgxjjcrbdy5" path="res://Resources/Player/BluShip.tres" id="2_wpgpo"]
 [ext_resource type="Script" uid="uid://debp8bkogqqr3" path="res://Scripts/Enemy/EnemySpawner.cs" id="3_qvtyt"]
+[ext_resource type="Resource" uid="uid://d2lx275p0hy0d" path="res://Resources/Player/CannonFotons.tres" id="3_w7l72"]
 [ext_resource type="Script" uid="uid://btyckb8hxyyq7" path="res://Scripts/Enemy/EnemyPool.cs" id="4_xhtl2"]
 [ext_resource type="Resource" uid="uid://ci4u8fvf2nt72" path="res://Resources/Enemy/black_1.tres" id="6_23yoc"]
+[ext_resource type="Script" uid="uid://oyivluv1ofsh" path="res://Scripts/Components/SceneComponent.cs" id="9_6jptx"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_ntgcc"]
-font = ExtResource("1_n1kio")
-
-[sub_resource type="LabelSettings" id="LabelSettings_qvtyt"]
-font = ExtResource("1_n1kio")
-
-[node name="Main" type="Node2D" unique_id=58723454 node_paths=PackedStringArray("_playerSpawn")]
+[node name="Main" type="Node2D" unique_id=58723454 node_paths=PackedStringArray("_playerSpawn", "_sceneComponent")]
 script = ExtResource("1_ntgcc")
 _shipConfig = ExtResource("2_wpgpo")
+_cannonConfig = ExtResource("3_w7l72")
 _playerSpawn = NodePath("PlayerSpawn")
 _playerScene = ExtResource("2_jyfha")
+_sceneComponent = NodePath("SceneComponent")
+_sceneInitial = ExtResource("2_23yoc")
 
-[node name="SceneContainer" type="Control" parent="." unique_id=1307710244]
-layout_mode = 3
-anchors_preset = 0
+[node name="SceneContainer" type="Node2D" parent="." unique_id=2002682222]
 scale = Vector2(9.020821, 16.069553)
 
 [node name="Stage1" parent="SceneContainer" unique_id=1766416572 instance=ExtResource("2_23yoc")]
-position = Vector2(18.623583, 22.153696)
-scale = Vector2(0.2, 0.2)
-
-[node name="UI" type="CanvasLayer" parent="." unique_id=1413519702]
-
-[node name="Control" type="Control" parent="UI" unique_id=456838903]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/Control" unique_id=31415694]
-layout_mode = 0
-offset_left = 66.0
-offset_top = 40.0
-offset_right = 167.0
-offset_bottom = 80.0
-
-[node name="LabelScore" type="Label" parent="UI/Control/HBoxContainer" unique_id=316301315]
-layout_mode = 2
-text = "SCORE"
-label_settings = SubResource("LabelSettings_ntgcc")
-
-[node name="LabelPoints" type="Label" parent="UI/Control/HBoxContainer" unique_id=331537002]
-layout_mode = 2
-text = "99999"
-label_settings = SubResource("LabelSettings_qvtyt")
 
 [node name="EnemySpawner" type="Node2D" parent="." unique_id=1695177879 node_paths=PackedStringArray("Pool", "EnemySpawns")]
 position = Vector2(133, 148)
@@ -77,3 +46,7 @@ Enemies = Array[Object]([ExtResource("6_23yoc")])
 
 [node name="PlayerSpawn" type="Marker2D" parent="." unique_id=311572383]
 position = Vector2(168, 574)
+
+[node name="SceneComponent" type="Node" parent="." unique_id=7814507 node_paths=PackedStringArray("SceneContainer")]
+script = ExtResource("9_6jptx")
+SceneContainer = NodePath("../SceneContainer")
