@@ -11,7 +11,7 @@ public partial class HealthComponent : Node
     #endregion
 
     #region Exports
-    [Export] private int maxHealth = 100;
+    [Export] private int maxHealth = 10;
 
     #endregion
 
@@ -30,9 +30,6 @@ public partial class HealthComponent : Node
 
     public void TakeDamage(float ammount)
     {
-        if (_currentHealth <= 0)
-            return;
-
         _currentHealth -= ammount;
         EmitSignal(SignalName.HealthChanged, _currentHealth);
 

@@ -1,50 +1,28 @@
 using Godot;
-
-public partial class ProjectileComponent : Area2D
+public partial class ProjectileComponent : Node
 {
-    #region Properties
-
     private ProjectileConfig _config;
-    private Vector2 _direction = Vector2.Right;
-    private Node _source;
-    private float _lifeTimer;
-    #endregion
+    private Vector2 _direction;
+    private float _timeAlive;
 
-    #region Métodos
-
-    public void Init(ProjectileConfig config, Node source)
+    public void Init(ProjectileConfig config, Vector2 direction)
     {
         _config = config;
-        _source = source;
-        _lifeTimer = config.Lifetime;
+        _direction = direction.Normalized();
     }
 
-    public void SetDirection(Vector2 dir)
+    public override void _Process(double delta)
     {
-        _direction = dir.Normalized();
+        if (_config == null) return;
+
+        _timeAlive += (float)delta;
+
+        var parent = GetParent<Node2D>();
+        parent.Position += _direction * _config.Speed * (float)delta;
+
+        if (_timeAlive >= _config.Lifetime)
+        {
+            parent.QueueFree();
+        }
     }
-
-    public override void _PhysicsProcess(double delta)
-    {
-        Translate(_direction * _config.Speed * (float)delta);
-
-        _lifeTimer -= (float)delta;
-        if (_lifeTimer <= 0)
-            QueueFree();
-    }
-
-    private void OnBodyEntered(Node body)
-    {
-        if (body is not HurtboxComponent hurtbox || !hurtbox.CanBeHit())
-            return;
-
-
-        hurtbox.TakeDamage(_config.Damage);
-
-        if (!_config.Pierce)
-            QueueFree();
-    }
-    #endregion
-
-
 }

@@ -24,7 +24,6 @@ public partial class HurtboxComponent : Area2D
 
     private bool _is_invincible;
     private HealthComponent _health;
-    private HitboxComponent _hitbox;
 
     #endregion
 
@@ -33,7 +32,6 @@ public partial class HurtboxComponent : Area2D
     public override void _Ready()
     {
         _health = GetParent().GetNode<HealthComponent>("HealthComponent");
-        _hitbox = GetParent().GetNodeOrNull<HitboxComponent>("HitboxComponent");
         AreaEntered += OnAreaEntered;
     }
 
@@ -48,12 +46,12 @@ public partial class HurtboxComponent : Area2D
             return;
         }
 
-        EmitSignal(SignalName.Hurt, hitbox); // ou DamageContext se vier do hitbox
+        EmitSignal(SignalName.Hurt, hitbox);
     }
 
     public void ShowDamageNumber(float damage)
     {
-        var numberScene = DamageNumberScene.Instantiate<Node2D>();
+        var numberScene = DamageNumberScene.Instantiate<Label>();
         GetParent().AddChild(numberScene);
         numberScene.GlobalPosition = GlobalPosition;
         //numberScene.Setup(damage, GD.Randf() > 0.5f);
@@ -84,7 +82,7 @@ public partial class HurtboxComponent : Area2D
 
     public void TakeDamage(float ammount)
     {
-        _health.TakeDamage(ammount);
+          _health.TakeDamage(ammount);
         ShowDamageNumber(ammount);
         EmitSignal(SignalName.Hurt, ammount);
     }

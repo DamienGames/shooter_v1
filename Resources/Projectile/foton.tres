@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="ProjectileConfig" format=3 uid="uid://cyje48uk6us56"]
+
+[ext_resource type="Script" uid="uid://dyo1u88bqfxlo" path="res://Scripts/Config/ProjectileConfig.cs" id="1_hykh8"]
+[ext_resource type="Texture2D" uid="uid://dk2b0j4k7qdti" path="res://Assets/Art/PNG/Lasers/laserBlue01.png" id="1_pvc3g"]
+
+[resource]
+script = ExtResource("1_hykh8")
+ProjectileSprite = ExtResource("1_pvc3g")
+metadata/_custom_type_script = "uid://dyo1u88bqfxlo"

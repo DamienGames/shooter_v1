@@ -2,8 +2,17 @@ using Godot;
 
 public partial class Enemy : StaticBody2D
 {
+
+    [Export] private HealthComponent _health;
+
     public bool Active { get; private set; }
     public float Speed { get; private set; } = 100f;
+
+    public override void _Ready()
+    {
+        _health.Died += OnDied;
+        base._Ready();
+    }
 
     public override void _PhysicsProcess(double delta)
     {
@@ -44,12 +53,11 @@ public partial class Enemy : StaticBody2D
         Visible = false;
         ProcessMode = ProcessModeEnum.Disabled;
         SetPhysicsProcess(false);
-
         Active = false;
     }
 
-    public void Die()
-    {
+    public void OnDied()
+      {
         Deactivate();
     }
 }

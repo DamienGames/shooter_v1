@@ -6,7 +6,7 @@ public partial class Player : CharacterBody2D
     [Export] private Sprite2D _sprite;
     [Export] private ShipConfig _shipConfig;
     [Export] private CannonConfig _cannonConfig;
-
+    [Export] private PackedScene _projectileScene;
     public float Speed { get; private set; }
     public float Damage { get; private set; }
 
@@ -20,20 +20,30 @@ public partial class Player : CharacterBody2D
     }
 
     public override void _PhysicsProcess(double delta)
-	{
-		Vector2 velocity = Velocity;
+    {
+        Vector2 velocity = Velocity;
 
-		Vector2 direction = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
-		if (direction != Vector2.Zero)
-		{
-			velocity.X = direction.X * Speed;
-		}
-		else
-		{
-			velocity.X = Mathf.MoveToward(Velocity.X, 0, Speed);
-		}
+        Vector2 direction = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
+        if (direction != Vector2.Zero)
+        {
+            velocity.X = direction.X * Speed;
+        }
+        else
+        {
+            velocity.X = Mathf.MoveToward(Velocity.X, 0, Speed);
+        }
 
-		Velocity = velocity;
-		MoveAndSlide();
-	}
+        if (Input.IsActionJustPressed("ui_accept"))
+        {
+            var projectile = _projectileScene.Instantiate<Projectile>();
+
+            GetTree().CurrentScene.AddChild(projectile);
+
+            projectile.GlobalPosition = GlobalPosition;
+            projectile.Fire(Vector2.Up); // direção
+        }
+
+        Velocity = velocity;
+        MoveAndSlide();
+    }
 }

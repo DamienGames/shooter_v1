@@ -1,9 +1,10 @@
 using Godot;
 
-public abstract partial class ProjectileConfig : Resource
+[GlobalClass]
+public partial class ProjectileConfig : Resource
 {
     #region Exports
-
+    [ExportGroup("Combat")]
     [Export] public float Speed = 400f;
     [Export] public float Damage = 10f;
     [Export] public float Lifetime = 3f;
@@ -14,11 +15,10 @@ public abstract partial class ProjectileConfig : Resource
     [Export] public bool ReturnToOwner = false;
     [Export] public int KnockbackForce = 0;
     [Export] public int PullForce = 0;
-    #endregion
 
-    #region Métodos
+    [ExportGroup("View")]
+    [Export] public Texture2D ProjectileSprite;
 
-    public abstract void Apply(Node target);
     #endregion
 
     #region Enums

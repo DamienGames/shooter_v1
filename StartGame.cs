@@ -4,8 +4,8 @@ public partial class StartGame : Control
 {
     [Export] public TextureButton botaoStart;
     [Export] public TextureButton botaoQuit;
+    [Export] public PackedScene PackedScene;
 
-    // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
         botaoStart.Pressed += OnIniciarPressed;
@@ -14,11 +14,11 @@ public partial class StartGame : Control
 
     public void OnIniciarPressed()
     {
-
+        GD.Print("TESTE inicio");
     }
 
     public void OnSairPressed()
     {
-
+        GD.Print("TESTE sair");
     }
 }

@@ -27,6 +27,20 @@ window/stretch/aspect="expand"
 
 project/assembly_name="SpaceShooterDotnet"
 
+[layer_names]
+
+2d_physics/layer_1="world"
+2d_physics/layer_2="objects"
+2d_physics/layer_3="projectile"
+2d_physics/layer_4="player"
+2d_physics/layer_5="player_hitbox"
+2d_physics/layer_6="player_hurtbox"
+2d_physics/layer_7="player_detection"
+2d_physics/layer_8="enemy"
+2d_physics/layer_9="enemy_hitbox"
+2d_physics/layer_10="enemy_hurtbox"
+2d_physics/layer_11="enemy_detection"
+
 [physics]
 
 3d/physics_engine="Jolt Physics"

@@ -8,19 +8,20 @@ public partial class CannonConfig : Resource
     [Export] public string DisplayName { get; set; }
 
     [ExportGroup("Combat")]
-    [Export] public float Damage { get; set; }
-    [Export] public float AttackSpeed { get; set; }
-    [Export] public float Range { get; set; }
-    [Export] public float Burst { get; set; }
+    [Export] public float Damage { get; set; } = 5;
+    [Export] public float AttackSpeed { get; set; } = 1;
+    [Export] public float Range { get; set; } = 100;
+    [Export] public float Burst { get; set; } = 1;
 
     [ExportGroup("Visual")]
     [Export] public Texture2D DisplayIcon;
-    [Export] public PackedScene CannonScene;
+    [Export] public Texture2D CannonSprite;
+    [Export] public PackedScene ProjectileScene;
 
     public enum CannonType
     {
-        Missile,
         Bullet,
+        Missile,
         Shot,
         Laser
     }
