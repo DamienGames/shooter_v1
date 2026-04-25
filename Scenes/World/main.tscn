@@ -9,8 +9,12 @@
 [ext_resource type="Script" uid="uid://btyckb8hxyyq7" path="res://Scripts/Enemy/EnemyPool.cs" id="4_xhtl2"]
 [ext_resource type="Resource" uid="uid://ci4u8fvf2nt72" path="res://Resources/Enemy/black_1.tres" id="6_23yoc"]
 [ext_resource type="Script" uid="uid://oyivluv1ofsh" path="res://Scripts/Components/SceneComponent.cs" id="9_6jptx"]
+[ext_resource type="Script" uid="uid://cv2fmvsm8oiwb" path="res://Scripts/World/UIManager.cs" id="10_w7l72"]
+[ext_resource type="Script" uid="uid://cvrvg0bdetaii" path="res://Scripts/World/Pause.cs" id="11_yteiy"]
+[ext_resource type="Texture2D" uid="uid://dpigaimr74lex" path="res://icon.svg" id="12_1pvyk"]
+[ext_resource type="Script" uid="uid://cuw4se4o6oase" path="res://Scripts/World/Start.cs" id="12_t55t5"]
 
-[node name="Main" type="Node2D" unique_id=58723454 node_paths=PackedStringArray("_playerSpawn", "_sceneComponent")]
+[node name="Main" type="Node2D" unique_id=58723454 node_paths=PackedStringArray("_playerSpawn", "_sceneComponent", "_startMenu", "_enemySpawner", "_score")]
 script = ExtResource("1_ntgcc")
 _shipConfig = ExtResource("2_wpgpo")
 _cannonConfig = ExtResource("3_w7l72")
@@ -18,6 +22,9 @@ _playerSpawn = NodePath("PlayerSpawn")
 _playerScene = ExtResource("2_jyfha")
 _sceneComponent = NodePath("SceneComponent")
 _sceneInitial = ExtResource("2_23yoc")
+_startMenu = NodePath("UI/Start")
+_enemySpawner = NodePath("EnemySpawner")
+_score = NodePath("UI/HUD/HBoxContainer/Score")
 
 [node name="SceneContainer" type="Node2D" parent="." unique_id=2002682222]
 scale = Vector2(9.020821, 16.069553)
@@ -48,3 +55,124 @@ position = Vector2(168, 574)
 [node name="SceneComponent" type="Node" parent="." unique_id=7814507 node_paths=PackedStringArray("SceneContainer")]
 script = ExtResource("9_6jptx")
 SceneContainer = NodePath("../SceneContainer")
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=1993364634 node_paths=PackedStringArray("_pauseMenu", "_gameOverMenu", "_startMenu")]
+script = ExtResource("10_w7l72")
+_pauseMenu = NodePath("Pause")
+_gameOverMenu = NodePath("GameOver")
+_startMenu = NodePath("Start")
+
+[node name="HUD" type="Control" parent="UI" unique_id=1446004666]
+layout_mode = 3
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 40.0
+grow_horizontal = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/HUD" unique_id=964221274]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 49.0
+grow_horizontal = 2
+
+[node name="Label" type="Label" parent="UI/HUD/HBoxContainer" unique_id=638535925]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+text = "SCORE
+"
+
+[node name="Score" type="Label" parent="UI/HUD/HBoxContainer" unique_id=765497567]
+layout_mode = 2
+size_flags_vertical = 0
+text = "000000"
+
+[node name="Pause" type="Control" parent="UI" unique_id=438530156 node_paths=PackedStringArray("ResumeButton")]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("11_yteiy")
+ResumeButton = NodePath("ResumeButton")
+
+[node name="ResumeButton" type="Button" parent="UI/Pause" unique_id=949193862]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -29.5
+offset_top = -15.5
+offset_right = 29.5
+offset_bottom = 15.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "PAUSE"
+
+[node name="GameOver" type="Control" parent="UI" unique_id=163262328]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Start" type="Control" parent="UI" unique_id=160964433 node_paths=PackedStringArray("StartButton")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("12_t55t5")
+StartButton = NodePath("Panel/BoxContainer/HBoxContainer/VBoxContainer/StartButton")
+
+[node name="Panel" type="Panel" parent="UI/Start" unique_id=868965436]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="UI/Start/Panel" unique_id=214523960]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("12_1pvyk")
+
+[node name="BoxContainer" type="BoxContainer" parent="UI/Start/Panel" unique_id=125163498]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -28.0
+offset_top = -15.5
+offset_right = 28.0
+offset_bottom = 15.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/Start/Panel/BoxContainer" unique_id=904393559]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Start/Panel/BoxContainer/HBoxContainer" unique_id=201399337]
+layout_mode = 2
+
+[node name="StartButton" type="Button" parent="UI/Start/Panel/BoxContainer/HBoxContainer/VBoxContainer" unique_id=1040951804]
+process_mode = 3
+layout_mode = 2
+size_flags_horizontal = 4
+text = "START"

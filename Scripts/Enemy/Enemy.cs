@@ -2,6 +2,7 @@ using Godot;
 
 public partial class Enemy : StaticBody2D
 {
+    [Signal] public delegate void DiedEventHandler();
 
     [Export] private HealthComponent _health;
 
@@ -57,7 +58,8 @@ public partial class Enemy : StaticBody2D
     }
 
     public void OnDied()
-      {
+    {
+         EmitSignal(SignalName.Died);
         Deactivate();
     }
 }

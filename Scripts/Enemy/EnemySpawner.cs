@@ -3,6 +3,8 @@ using Godot.Collections;
 
 public partial class EnemySpawner : Node2D
 {
+    [Signal] public delegate void EnemyKilledEventHandler(int score);
+
     [Export] public EnemyPool Pool { get; set; }
     [Export] public Array<EnemyConfig> SpawnTable { get; set; }
     [Export] public float SpawnInterval { get; set; } = 2f;
@@ -33,9 +35,18 @@ public partial class EnemySpawner : Node2D
 
        var spawnPostition = EnemySpawns[GD.RandRange(0, 2)].GlobalPosition;
 
-        Pool.GetEnemy(
+        var enemy = Pool.GetEnemy(
             config,
             spawnPostition
         );
+
+        if(enemy is not null)
+            enemy.Died += OnEnemyDied;
+
+    }
+
+    public void OnEnemyDied()
+    {
+        EmitSignal(SignalName.EnemyKilled, 2);
     }
 }
