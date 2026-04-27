@@ -2,27 +2,12 @@
 
 [ext_resource type="Texture2D" uid="uid://r3cipi3nyexo" path="res://Assets/Art/Backgrounds/purple.png" id="1_58v8l"]
 
-[node name="Stage1" type="Node2D" unique_id=1766416572]
-position = Vector2(129, 128)
-
-[node name="Control" type="Control" parent="." unique_id=2000395755]
-layout_mode = 3
+[node name="Stage1" type="TextureRect" unique_id=116285384]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="TextureRect" type="TextureRect" parent="Control" unique_id=116285384]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -128.0
-offset_top = -128.0
-offset_right = -128.0
-offset_bottom = -128.0
+offset_right = -104.0
+offset_bottom = -384.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("1_58v8l")
-metadata/_edit_use_anchors_ = true

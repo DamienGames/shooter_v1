@@ -4,6 +4,7 @@
 [ext_resource type="Resource" uid="uid://cyje48uk6us56" path="res://Resources/Projectile/foton.tres" id="2_8ffq8"]
 [ext_resource type="Texture2D" uid="uid://dk2b0j4k7qdti" path="res://Assets/Art/PNG/Lasers/laserBlue01.png" id="2_l32uc"]
 [ext_resource type="Script" uid="uid://cywv6wywyqxw2" path="res://Scripts/Components/ProjectileComponent.cs" id="4_8ffq8"]
+[ext_resource type="Script" uid="uid://cicxmaemg5myg" path="res://Scripts/Components/HitboxComponent.cs" id="5_2ynyh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_seq1s"]
 size = Vector2(20, 47)
@@ -12,8 +13,8 @@ size = Vector2(20, 47)
 size = Vector2(10, 20)
 
 [node name="Projectile" type="Area2D" unique_id=1458789398]
-collision_layer = 16
-collision_mask = 512
+collision_layer = 4
+collision_mask = 0
 script = ExtResource("1_seq1s")
 _config = ExtResource("2_8ffq8")
 
@@ -27,9 +28,12 @@ shape = SubResource("RectangleShape2D_seq1s")
 [node name="ProjectileComponent" type="Node" parent="." unique_id=1131135237]
 script = ExtResource("4_8ffq8")
 
-[node name="HitBox" type="Area2D" parent="." unique_id=805176195]
+[node name="HitBoxComponent" type="Area2D" parent="." unique_id=805176195]
 scale = Vector2(0.8123049, 1.3947121)
+collision_layer = 4
+collision_mask = 547
+script = ExtResource("5_2ynyh")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox" unique_id=1701207265]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBoxComponent" unique_id=1701207265]
 shape = SubResource("RectangleShape2D_8ffq8")
 debug_color = Color(0.9383052, 0.15767008, 0.48891294, 0.41960785)

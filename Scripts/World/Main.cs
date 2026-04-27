@@ -30,7 +30,7 @@ public partial class Main : Node2D
         _playerSpawn = GetNode<Marker2D>("PlayerSpawn");
         _player = _playerScene.Instantiate<Player>();
         _player.GlobalPosition = _playerSpawn.GlobalPosition;
-        _player.Setup(_shipConfig, _cannonConfig);
+        _player.Init(_shipConfig, _cannonConfig);
         AddChild(_player);
     }
 

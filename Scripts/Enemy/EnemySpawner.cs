@@ -1,5 +1,6 @@
 using Godot;
 using Godot.Collections;
+using System;
 
 public partial class EnemySpawner : Node2D
 {
@@ -19,6 +20,8 @@ public partial class EnemySpawner : Node2D
         AddChild(_timer);
         _timer.WaitTime = SpawnInterval;
         _timer.Timeout += OnSpawnTimer;
+        Pool.Deactivated += OnEnemyDied;
+
         _timer.Start();
     }
 
@@ -39,14 +42,10 @@ public partial class EnemySpawner : Node2D
             config,
             spawnPostition
         );
-
-        if(enemy is not null)
-            enemy.Died += OnEnemyDied;
-
     }
 
-    public void OnEnemyDied()
+    public void OnEnemyDied(int score)
     {
-        EmitSignal(SignalName.EnemyKilled, 2);
+        EmitSignal(SignalName.EnemyKilled, score);
     }
 }

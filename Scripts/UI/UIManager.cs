@@ -20,6 +20,10 @@ public partial class UIManager : CanvasLayer
 
         _startMenu.Visible = state == GameState.Starting;
         _pauseMenu.Visible = state == GameState.Paused;
+        if (state == GameState.GameOver)
+        {
+            GD.Print("GAmeOver");
+        }
         _gameOverMenu.Visible = state == GameState.GameOver;
     }
 }

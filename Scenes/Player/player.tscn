@@ -4,21 +4,41 @@
 [ext_resource type="Resource" uid="uid://delgxjjcrbdy5" path="res://Resources/Player/BluShip.tres" id="2_a3d8c"]
 [ext_resource type="Resource" uid="uid://d2lx275p0hy0d" path="res://Resources/Player/CannonFotons.tres" id="3_xpcdj"]
 [ext_resource type="PackedScene" uid="uid://h0ndg7xgd4f" path="res://Scenes/Weapon/projectile.tscn" id="4_mtuoh"]
-[ext_resource type="Texture2D" uid="uid://dk2b0j4k7qdti" path="res://Assets/Art/PNG/Lasers/laserBlue01.png" id="5_htcer"]
+[ext_resource type="Script" uid="uid://cu0tfvmbb1lpg" path="res://Scripts/Components/HurtboxComponent.cs" id="6_0u5uq"]
+[ext_resource type="Script" uid="uid://bkltjxsom0dyf" path="res://Scripts/Components/HealthComponent.cs" id="7_0u5uq"]
+[ext_resource type="PackedScene" uid="uid://dm4kttfgllgbd" path="res://Scenes/UI/damage_number.tscn" id="7_jlvik"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_a3d8c"]
 radius = 6.0
 
-[node name="Player" type="CharacterBody2D" unique_id=1664683295 node_paths=PackedStringArray("_sprite")]
+[sub_resource type="CircleShape2D" id="CircleShape2D_gk6dx"]
+radius = 10.198039
+
+[node name="Player" type="CharacterBody2D" unique_id=1664683295 node_paths=PackedStringArray("_sprite", "_health") groups=["player"]]
+collision_layer = 8
+collision_mask = 131
 script = ExtResource("1_uvnfx")
 _sprite = NodePath("Sprite")
 _shipConfig = ExtResource("2_a3d8c")
 _cannonConfig = ExtResource("3_xpcdj")
 _projectileScene = ExtResource("4_mtuoh")
+_health = NodePath("HealthComponent")
 
 [node name="Sprite" type="Sprite2D" parent="." unique_id=378656112]
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("5_htcer")
 
 [node name="Collision" type="CollisionShape2D" parent="." unique_id=1597489091]
 shape = SubResource("CircleShape2D_a3d8c")
+
+[node name="HurtboxComponent" type="Area2D" parent="." unique_id=278232949 groups=["player"]]
+collision_layer = 32
+collision_mask = 260
+script = ExtResource("6_0u5uq")
+DamageNumberScene = ExtResource("7_jlvik")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent" unique_id=1576772754]
+shape = SubResource("CircleShape2D_gk6dx")
+debug_color = Color(0.730957, 0.47224522, 0.06701361, 0.41960785)
+
+[node name="HealthComponent" type="Node" parent="." unique_id=659056920]
+script = ExtResource("7_0u5uq")

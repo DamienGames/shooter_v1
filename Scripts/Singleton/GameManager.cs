@@ -4,7 +4,7 @@ public partial class GameManager : Node
 {
     public static GameManager Instance;
 
-    public GameState CurrentState { get; private set; } = GameState.Playing;
+    public GameState CurrentState { get; private set; } = GameState.Starting;
 
     public override void _Ready()
     {
@@ -26,7 +26,7 @@ public partial class GameManager : Node
                 break;
 
             case GameState.GameOver:
-                GetTree().Paused = true;
+                GetTree().Paused = false;
                 break;
         }
     }

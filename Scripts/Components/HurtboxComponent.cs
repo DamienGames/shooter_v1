@@ -1,9 +1,11 @@
+using Godot;
 using System;
+using System.ComponentModel;
+using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
-using Godot;
-using static System.Net.Mime.MediaTypeNames;
 using static HitboxComponent;
+using static System.Net.Mime.MediaTypeNames;
 
 public partial class HurtboxComponent : Area2D
 {
@@ -38,15 +40,19 @@ public partial class HurtboxComponent : Area2D
     private void OnAreaEntered(Area2D area)
     {
         if (area is not HitboxComponent hitbox)
-            return;
-
-        if (_is_invincible)
         {
-            EmitSignal(SignalName.Blocked, area);
             return;
         }
+        else
+        {
+             if (_is_invincible)
+            {
+                EmitSignal(SignalName.Blocked, area);
+                return;
+            }
 
-        EmitSignal(SignalName.Hurt, hitbox);
+             EmitSignal(SignalName.Hurt, hitbox);
+        }       
     }
 
     public void ShowDamageNumber(float damage)

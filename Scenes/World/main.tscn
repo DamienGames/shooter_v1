@@ -7,12 +7,24 @@
 [ext_resource type="Script" uid="uid://debp8bkogqqr3" path="res://Scripts/Enemy/EnemySpawner.cs" id="3_qvtyt"]
 [ext_resource type="Resource" uid="uid://d2lx275p0hy0d" path="res://Resources/Player/CannonFotons.tres" id="3_w7l72"]
 [ext_resource type="Script" uid="uid://btyckb8hxyyq7" path="res://Scripts/Enemy/EnemyPool.cs" id="4_xhtl2"]
-[ext_resource type="Resource" uid="uid://ci4u8fvf2nt72" path="res://Resources/Enemy/black_1.tres" id="6_23yoc"]
+[ext_resource type="PackedScene" uid="uid://dljvj4wb3xsas" path="res://Scenes/Enemy/enemy.tscn" id="7_g3oxa"]
+[ext_resource type="Script" uid="uid://vjsjjqknrf31" path="res://Scripts/Config/EnemyConfig.cs" id="8_ombbc"]
 [ext_resource type="Script" uid="uid://oyivluv1ofsh" path="res://Scripts/Components/SceneComponent.cs" id="9_6jptx"]
-[ext_resource type="Script" uid="uid://cv2fmvsm8oiwb" path="res://Scripts/World/UIManager.cs" id="10_w7l72"]
-[ext_resource type="Script" uid="uid://cvrvg0bdetaii" path="res://Scripts/World/Pause.cs" id="11_yteiy"]
+[ext_resource type="Script" uid="uid://cv2fmvsm8oiwb" path="res://Scripts/UI/UIManager.cs" id="10_w7l72"]
+[ext_resource type="Script" uid="uid://cvrvg0bdetaii" path="res://Scripts/UI/Pause.cs" id="11_yteiy"]
 [ext_resource type="Texture2D" uid="uid://dpigaimr74lex" path="res://icon.svg" id="12_1pvyk"]
-[ext_resource type="Script" uid="uid://cuw4se4o6oase" path="res://Scripts/World/Start.cs" id="12_t55t5"]
+[ext_resource type="Script" uid="uid://cuw4se4o6oase" path="res://Scripts/UI/Start.cs" id="12_t55t5"]
+[ext_resource type="Script" uid="uid://rloc87nbemkv" path="res://Scripts/UI/GameOver.cs" id="15_ombbc"]
+
+[sub_resource type="Resource" id="Resource_4ad2a"]
+script = ExtResource("8_ombbc")
+Id = "black_1"
+DisplayName = "Black One"
+Score = 1
+Shield = 2.0
+Cooldown = 4.0
+EnemyScene = ExtResource("7_g3oxa")
+metadata/_custom_type_script = "uid://vjsjjqknrf31"
 
 [node name="Main" type="Node2D" unique_id=58723454 node_paths=PackedStringArray("_playerSpawn", "_sceneComponent", "_startMenu", "_enemySpawner", "_score")]
 script = ExtResource("1_ntgcc")
@@ -26,28 +38,47 @@ _startMenu = NodePath("UI/Start")
 _enemySpawner = NodePath("EnemySpawner")
 _score = NodePath("UI/HUD/HBoxContainer/Score")
 
-[node name="SceneContainer" type="Node2D" parent="." unique_id=2002682222]
+[node name="SceneContainer" type="Control" parent="." unique_id=1510525682]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 scale = Vector2(9.020821, 16.069553)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="SceneContainer" unique_id=167013259]
+collision_mask = 142
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="SceneContainer/StaticBody2D" unique_id=909920941]
+scale = Vector2(0.9634791, 0.9969128)
+build_mode = 1
+polygon = PackedVector2Array(0, 0, -0.115056634, 40.13747, 41.305332, 39.887783, 41.305332, 42.821625, -8.399135, 43.19616, -8.284078, -0.12484439)
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="SceneContainer/StaticBody2D" unique_id=882817738]
+build_mode = 1
+polygon = PackedVector2Array(45.672123, 42.19159, 39.796825, 42.627197, 39.90768, -0.18668845, -0.11085466, -0.062229484, 0, -2.5514088, 45.450413, -2.42695)
 
 [node name="EnemySpawner" type="Node2D" parent="." unique_id=1695177879 node_paths=PackedStringArray("Pool", "EnemySpawns")]
 position = Vector2(133, 148)
 script = ExtResource("3_qvtyt")
 Pool = NodePath("../EnemmyPool")
-SpawnTable = Array[Object]([ExtResource("6_23yoc")])
+SpawnTable = Array[Object]([SubResource("Resource_4ad2a")])
 EnemySpawns = [NodePath("EnemySpawnTop"), NodePath("EnemySpawnLeft"), NodePath("EnemySpawnRight")]
 
 [node name="EnemySpawnTop" type="Marker2D" parent="EnemySpawner" unique_id=1251926512]
 position = Vector2(35, -171)
 
 [node name="EnemySpawnLeft" type="Marker2D" parent="EnemySpawner" unique_id=983769368]
-position = Vector2(-171, 100)
+position = Vector2(-121, 103)
 
 [node name="EnemySpawnRight" type="Marker2D" parent="EnemySpawner" unique_id=452765237]
-position = Vector2(276, 100)
+position = Vector2(219, 100)
 
-[node name="EnemmyPool" type="Node2D" parent="." unique_id=703055783]
+[node name="EnemmyPool" type="Node2D" parent="." unique_id=703055783 node_paths=PackedStringArray("Spawner")]
 script = ExtResource("4_xhtl2")
-Enemies = Array[Object]([ExtResource("6_23yoc")])
+Enemies = Array[Object]([SubResource("Resource_4ad2a")])
+Spawner = NodePath("../EnemySpawner")
 
 [node name="PlayerSpawn" type="Marker2D" parent="." unique_id=311572383]
 position = Vector2(168, 574)
@@ -63,6 +94,7 @@ _gameOverMenu = NodePath("GameOver")
 _startMenu = NodePath("Start")
 
 [node name="HUD" type="Control" parent="UI" unique_id=1446004666]
+modulate = Color(1, 1, 0.23137255, 1)
 layout_mode = 3
 anchors_preset = 5
 anchor_left = 0.5
@@ -74,10 +106,16 @@ grow_horizontal = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="UI/HUD" unique_id=964221274]
 layout_mode = 1
-anchors_preset = 10
+anchors_preset = 15
 anchor_right = 1.0
-offset_bottom = 49.0
+anchor_bottom = 1.0
+offset_left = -96.0
+offset_top = 4.0
+offset_right = -26.0
+offset_bottom = 13.0
 grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(2, 2)
 
 [node name="Label" type="Label" parent="UI/HUD/HBoxContainer" unique_id=638535925]
 layout_mode = 2
@@ -93,6 +131,7 @@ text = "000000"
 
 [node name="Pause" type="Control" parent="UI" unique_id=438530156 node_paths=PackedStringArray("ResumeButton")]
 process_mode = 3
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -116,13 +155,6 @@ offset_bottom = 15.5
 grow_horizontal = 2
 grow_vertical = 2
 text = "PAUSE"
-
-[node name="GameOver" type="Control" parent="UI" unique_id=163262328]
-process_mode = 3
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
 
 [node name="Start" type="Control" parent="UI" unique_id=160964433 node_paths=PackedStringArray("StartButton")]
 layout_mode = 3
@@ -176,3 +208,57 @@ process_mode = 3
 layout_mode = 2
 size_flags_horizontal = 4
 text = "START"
+
+[node name="GameOver" type="Control" parent="UI" unique_id=1523128261 node_paths=PackedStringArray("RestartButton")]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("15_ombbc")
+RestartButton = NodePath("Panel/BoxContainer/HBoxContainer/VBoxContainer/RestartButton")
+
+[node name="Panel" type="Panel" parent="UI/GameOver" unique_id=841556769]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="UI/GameOver/Panel" unique_id=1214895195]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("12_1pvyk")
+
+[node name="BoxContainer" type="BoxContainer" parent="UI/GameOver/Panel" unique_id=1987895524]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -28.0
+offset_top = -15.5
+offset_right = 28.0
+offset_bottom = 15.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/GameOver/Panel/BoxContainer" unique_id=1687158088]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/GameOver/Panel/BoxContainer/HBoxContainer" unique_id=1333235164]
+layout_mode = 2
+
+[node name="RestartButton" type="Button" parent="UI/GameOver/Panel/BoxContainer/HBoxContainer/VBoxContainer" unique_id=1779445908]
+process_mode = 3
+layout_mode = 2
+size_flags_horizontal = 4
+text = "RESTART"

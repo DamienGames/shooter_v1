@@ -2,7 +2,7 @@ using Godot;
 
 public partial class SceneComponent : Node
 {
-    [Export] public Node2D SceneContainer;
+    [Export] public Control SceneContainer;
 
     public override void _Ready()
     {
@@ -32,9 +32,6 @@ public partial class SceneComponent : Node
 
         var instance = scene.Instantiate();
         SceneContainer.AddChild(instance);
-
-        //instance.GlobalPosition = position;
-
         return instance;
     }
 }

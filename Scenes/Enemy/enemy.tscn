@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://b8lpscjnmc0ob" path="res://Scripts/Enemy/Enemy.cs" id="1_mw074"]
 [ext_resource type="Texture2D" uid="uid://h24kv6m2dm1a" path="res://Assets/Art/PNG/Enemies/enemyBlack1.png" id="2_nvvbs"]
+[ext_resource type="PackedScene" uid="uid://h0ndg7xgd4f" path="res://Scenes/Weapon/projectile.tscn" id="2_pqgp3"]
 [ext_resource type="Script" uid="uid://cu0tfvmbb1lpg" path="res://Scripts/Components/HurtboxComponent.cs" id="3_2t2r4"]
 [ext_resource type="PackedScene" uid="uid://dm4kttfgllgbd" path="res://Scenes/UI/damage_number.tscn" id="4_d40jh"]
 [ext_resource type="Script" uid="uid://bkltjxsom0dyf" path="res://Scripts/Components/HealthComponent.cs" id="4_dmwl5"]
@@ -13,8 +14,11 @@ radius = 13.341664
 radius = 25.079872
 
 [node name="Enemy" type="StaticBody2D" unique_id=64044841 node_paths=PackedStringArray("_health") groups=["enemy"]]
+collision_layer = 128
+collision_mask = 136
 script = ExtResource("1_mw074")
 _health = NodePath("HealthComponent")
+_projectileScene = ExtResource("2_pqgp3")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1423117985]
 shape = SubResource("CircleShape2D_mw074")
@@ -24,6 +28,8 @@ scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_nvvbs")
 
 [node name="HurtboxComponent" type="Area2D" parent="." unique_id=1296724783 groups=["enemy"]]
+collision_layer = 512
+collision_mask = 20
 script = ExtResource("3_2t2r4")
 DamageNumberScene = ExtResource("4_d40jh")
 
@@ -33,4 +39,3 @@ debug_color = Color(0.730957, 0.47224522, 0.06701361, 0.41960785)
 
 [node name="HealthComponent" type="Node" parent="." unique_id=1699563690]
 script = ExtResource("4_dmwl5")
-maxHealth = 10

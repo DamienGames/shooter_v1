@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using static GameManager;
 
 public partial class Player : CharacterBody2D
 {
@@ -7,16 +8,20 @@ public partial class Player : CharacterBody2D
     [Export] private ShipConfig _shipConfig;
     [Export] private CannonConfig _cannonConfig;
     [Export] private PackedScene _projectileScene;
+    [Export] private HealthComponent _health;
+
     public float Speed { get; private set; }
     public float Damage { get; private set; }
 
-    public void Setup(ShipConfig shipConfig, CannonConfig cannonConfig)
+    public void Init(ShipConfig shipConfig, CannonConfig cannonConfig)
     {
         _shipConfig = shipConfig;
         _cannonConfig = cannonConfig;
         _sprite.Texture = shipConfig.ShipSprite;
         Speed = shipConfig.MovingSpeed;
         Damage = cannonConfig.Damage;
+        _health.Died += OnDied;
+
     }
 
     public override void _PhysicsProcess(double delta)
@@ -36,14 +41,28 @@ public partial class Player : CharacterBody2D
         if (Input.IsActionJustPressed("ui_accept"))
         {
             var projectile = _projectileScene.Instantiate<Projectile>();
-
             GetTree().CurrentScene.AddChild(projectile);
+            projectile.Init(this, GlobalPosition, "enemy");
 
-            projectile.GlobalPosition = GlobalPosition;
-            projectile.Fire(Vector2.Up); // direção
+            projectile.Fire(Vector2.Up);
         }
 
         Velocity = velocity;
         MoveAndSlide();
+    }
+
+    public void Shoot()
+    {
+        var projectile = _projectileScene.Instantiate<Projectile>();
+
+        GetTree().CurrentScene.AddChild(projectile);
+        projectile.Init(this, GlobalPosition, "enemy");
+        projectile.GlobalPosition = GlobalPosition;
+        projectile.Fire(Vector2.Up);
+    }
+
+    public void OnDied()
+    {
+        GameManager.Instance.SetState(GameState.GameOver);
     }
 }
