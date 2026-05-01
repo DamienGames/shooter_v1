@@ -15,18 +15,17 @@
 [ext_resource type="Texture2D" uid="uid://dpigaimr74lex" path="res://icon.svg" id="12_1pvyk"]
 [ext_resource type="Script" uid="uid://cuw4se4o6oase" path="res://Scripts/UI/Start.cs" id="12_t55t5"]
 [ext_resource type="Script" uid="uid://rloc87nbemkv" path="res://Scripts/UI/GameOver.cs" id="15_ombbc"]
+[ext_resource type="AudioStream" uid="uid://bml135gktcjnh" path="res://Assets/Sound/BeepBox-Song (1).mp3" id="16_8o8og"]
 
 [sub_resource type="Resource" id="Resource_4ad2a"]
 script = ExtResource("8_ombbc")
 Id = "black_1"
 DisplayName = "Black One"
-Score = 1
 Shield = 2.0
-Cooldown = 4.0
 EnemyScene = ExtResource("7_g3oxa")
 metadata/_custom_type_script = "uid://vjsjjqknrf31"
 
-[node name="Main" type="Node2D" unique_id=58723454 node_paths=PackedStringArray("_playerSpawn", "_sceneComponent", "_startMenu", "_enemySpawner", "_score")]
+[node name="Main" type="Node2D" unique_id=58723454 node_paths=PackedStringArray("_playerSpawn", "_sceneComponent", "_startMenu", "_enemySpawner", "_score", "_musicSound")]
 script = ExtResource("1_ntgcc")
 _shipConfig = ExtResource("2_wpgpo")
 _cannonConfig = ExtResource("3_w7l72")
@@ -37,6 +36,7 @@ _sceneInitial = ExtResource("2_23yoc")
 _startMenu = NodePath("UI/Start")
 _enemySpawner = NodePath("EnemySpawner")
 _score = NodePath("UI/HUD/HBoxContainer/Score")
+_musicSound = NodePath("Music")
 
 [node name="SceneContainer" type="Control" parent="." unique_id=1510525682]
 layout_mode = 3
@@ -75,10 +75,9 @@ position = Vector2(-121, 103)
 [node name="EnemySpawnRight" type="Marker2D" parent="EnemySpawner" unique_id=452765237]
 position = Vector2(219, 100)
 
-[node name="EnemmyPool" type="Node2D" parent="." unique_id=703055783 node_paths=PackedStringArray("Spawner")]
+[node name="EnemmyPool" type="Node2D" parent="." unique_id=703055783]
 script = ExtResource("4_xhtl2")
 Enemies = Array[Object]([SubResource("Resource_4ad2a")])
-Spawner = NodePath("../EnemySpawner")
 
 [node name="PlayerSpawn" type="Marker2D" parent="." unique_id=311572383]
 position = Vector2(168, 574)
@@ -262,3 +261,8 @@ process_mode = 3
 layout_mode = 2
 size_flags_horizontal = 4
 text = "RESTART"
+
+[node name="Music" type="AudioStreamPlayer2D" parent="." unique_id=976701922]
+stream = ExtResource("16_8o8og")
+autoplay = true
+bus = &"Music"

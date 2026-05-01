@@ -4,9 +4,13 @@
 [ext_resource type="Resource" uid="uid://delgxjjcrbdy5" path="res://Resources/Player/BluShip.tres" id="2_a3d8c"]
 [ext_resource type="Resource" uid="uid://d2lx275p0hy0d" path="res://Resources/Player/CannonFotons.tres" id="3_xpcdj"]
 [ext_resource type="PackedScene" uid="uid://h0ndg7xgd4f" path="res://Scenes/Weapon/projectile.tscn" id="4_mtuoh"]
+[ext_resource type="Texture2D" uid="uid://qopjadqwm0ue" path="res://Assets/Art/PNG/Parts/gun00.png" id="5_74mp2"]
 [ext_resource type="Script" uid="uid://cu0tfvmbb1lpg" path="res://Scripts/Components/HurtboxComponent.cs" id="6_0u5uq"]
+[ext_resource type="Texture2D" uid="uid://vp8gwjh8wrm3" path="res://Assets/Art/PNG/playerShip1_red.png" id="6_oikmp"]
 [ext_resource type="Script" uid="uid://bkltjxsom0dyf" path="res://Scripts/Components/HealthComponent.cs" id="7_0u5uq"]
 [ext_resource type="PackedScene" uid="uid://dm4kttfgllgbd" path="res://Scenes/UI/damage_number.tscn" id="7_jlvik"]
+[ext_resource type="AudioStream" uid="uid://i55iccp0ybxd" path="res://Assets/Sound/sfx_laser1.ogg" id="8_jlvik"]
+[ext_resource type="AudioStream" uid="uid://c0ifttnvlis3q" path="res://Assets/Sound/sfx_lose.ogg" id="9_gk6dx"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_a3d8c"]
 radius = 6.0
@@ -14,18 +18,27 @@ radius = 6.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_gk6dx"]
 radius = 10.198039
 
-[node name="Player" type="CharacterBody2D" unique_id=1664683295 node_paths=PackedStringArray("_sprite", "_health") groups=["player"]]
+[node name="Player" type="CharacterBody2D" unique_id=1664683295 node_paths=PackedStringArray("_sprite", "_health", "_shootSound", "_dieSound", "_cannon") groups=["player"]]
 collision_layer = 8
 collision_mask = 131
 script = ExtResource("1_uvnfx")
-_sprite = NodePath("Sprite")
+_sprite = NodePath("ShipSprite")
 _shipConfig = ExtResource("2_a3d8c")
 _cannonConfig = ExtResource("3_xpcdj")
 _projectileScene = ExtResource("4_mtuoh")
 _health = NodePath("HealthComponent")
+_shootSound = NodePath("SFX/ShootSound")
+_dieSound = NodePath("SFX/DieSound")
+_cannon = NodePath("Cannon")
 
-[node name="Sprite" type="Sprite2D" parent="." unique_id=378656112]
+[node name="CannonSprite" type="Sprite2D" parent="." unique_id=7310429]
+position = Vector2(0, -23)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("5_74mp2")
+
+[node name="ShipSprite" type="Sprite2D" parent="." unique_id=378656112]
 scale = Vector2(0.5, 0.5)
+texture = ExtResource("6_oikmp")
 
 [node name="Collision" type="CollisionShape2D" parent="." unique_id=1597489091]
 shape = SubResource("CircleShape2D_a3d8c")
@@ -42,3 +55,16 @@ debug_color = Color(0.730957, 0.47224522, 0.06701361, 0.41960785)
 
 [node name="HealthComponent" type="Node" parent="." unique_id=659056920]
 script = ExtResource("7_0u5uq")
+
+[node name="SFX" type="Node" parent="." unique_id=2143741960]
+
+[node name="ShootSound" type="AudioStreamPlayer2D" parent="SFX" unique_id=847028213]
+stream = ExtResource("8_jlvik")
+bus = &"SFX"
+area_mask = 8
+
+[node name="DieSound" type="AudioStreamPlayer2D" parent="SFX" unique_id=942168869]
+stream = ExtResource("9_gk6dx")
+
+[node name="Cannon" type="Marker2D" parent="." unique_id=2142656237]
+position = Vector2(0, -28)

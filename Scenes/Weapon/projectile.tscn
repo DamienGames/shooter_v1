@@ -5,12 +5,30 @@
 [ext_resource type="Texture2D" uid="uid://dk2b0j4k7qdti" path="res://Assets/Art/PNG/Lasers/laserBlue01.png" id="2_l32uc"]
 [ext_resource type="Script" uid="uid://cywv6wywyqxw2" path="res://Scripts/Components/ProjectileComponent.cs" id="4_8ffq8"]
 [ext_resource type="Script" uid="uid://cicxmaemg5myg" path="res://Scripts/Components/HitboxComponent.cs" id="5_2ynyh"]
+[ext_resource type="Texture2D" uid="uid://k1ka5jsocfc2" path="res://Assets/Art/PNG/Effects/star3.png" id="6_q5g1p"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_seq1s"]
 size = Vector2(20, 47)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8ffq8"]
 size = Vector2(10, 20)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_rhj1g"]
+particle_flag_disable_z = true
+emission_shape = 2
+emission_sphere_radius = 4.1
+angle_min = 464.50003
+angle_max = 464.50003
+spread = 106.412
+flatness = 0.047
+angular_velocity_min = -209.04001
+angular_velocity_max = -77.430016
+gravity = Vector3(0, 98, 0)
+damping_min = 47.312004
+damping_max = 47.312004
+scale_min = 0.0
+scale_max = 0.19999999
+color = Color(0.48235294, 1, 1, 1)
 
 [node name="Projectile" type="Area2D" unique_id=1458789398]
 collision_layer = 4
@@ -37,3 +55,8 @@ script = ExtResource("5_2ynyh")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBoxComponent" unique_id=1701207265]
 shape = SubResource("RectangleShape2D_8ffq8")
 debug_color = Color(0.9383052, 0.15767008, 0.48891294, 0.41960785)
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=689818949]
+amount = 22
+texture = ExtResource("6_q5g1p")
+process_material = SubResource("ParticleProcessMaterial_rhj1g")

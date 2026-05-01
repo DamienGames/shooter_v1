@@ -9,6 +9,9 @@ public partial class Player : CharacterBody2D
     [Export] private CannonConfig _cannonConfig;
     [Export] private PackedScene _projectileScene;
     [Export] private HealthComponent _health;
+    [Export] private AudioStreamPlayer2D _shootSound;
+    [Export] private AudioStreamPlayer2D _dieSound;
+    [Export] private Marker2D _cannon;
 
     public float Speed { get; private set; }
     public float Damage { get; private set; }
@@ -21,7 +24,8 @@ public partial class Player : CharacterBody2D
         Speed = shipConfig.MovingSpeed;
         Damage = cannonConfig.Damage;
         _health.Died += OnDied;
-
+        _shootSound = GetNode<AudioStreamPlayer2D>("SFX/ShootSound");
+        _dieSound = GetNode<AudioStreamPlayer2D>("SFX/DieSound");
     }
 
     public override void _PhysicsProcess(double delta)
@@ -40,11 +44,7 @@ public partial class Player : CharacterBody2D
 
         if (Input.IsActionJustPressed("ui_accept"))
         {
-            var projectile = _projectileScene.Instantiate<Projectile>();
-            GetTree().CurrentScene.AddChild(projectile);
-            projectile.Init(this, GlobalPosition, "enemy");
-
-            projectile.Fire(Vector2.Up);
+            Shoot();
         }
 
         Velocity = velocity;
@@ -56,13 +56,15 @@ public partial class Player : CharacterBody2D
         var projectile = _projectileScene.Instantiate<Projectile>();
 
         GetTree().CurrentScene.AddChild(projectile);
-        projectile.Init(this, GlobalPosition, "enemy");
-        projectile.GlobalPosition = GlobalPosition;
+        projectile.Init(this, _cannon.GlobalPosition, "enemy");
+        projectile.GlobalPosition = _cannon.GlobalPosition;
+        _shootSound.Play();
         projectile.Fire(Vector2.Up);
     }
 
     public void OnDied()
     {
+        _dieSound.Play();
         GameManager.Instance.SetState(GameState.GameOver);
     }
 }

@@ -45,7 +45,7 @@ public partial class EnemySpawner : Node2D
     }
 
     public void OnEnemyDied(int score)
-    {
+       {
         EmitSignal(SignalName.EnemyKilled, score);
     }
 }

@@ -13,6 +13,7 @@ public partial class Main : Node2D
     [Export] private Node _startMenu;
     [Export] private EnemySpawner _enemySpawner;
     [Export] private Label _score;
+    [Export] private AudioStreamPlayer2D _musicSound;
 
     private Player _player;
 
